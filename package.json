@@ -2,7 +2,7 @@
   "name": "maritimefs",
   "displayName": "MaritimeFS",
   "description": "Your Maritime agents, right inside VS Code. Browse and edit remote persistent volumes.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "mohi-devhub",
   "license": "MIT",
   "author": "MaritimeFS contributors",

@@ -1,9 +1,9 @@
 # Changelog
 
-## 0.1.4
+## 0.1.5
 
-- Shortened the README and added an inline demo player.
-- Removed internal launch material and media binaries from the source tree. Runtime behavior is unchanged from 0.1.2.
+- Simplified the README and added a playable demo directly to it.
+- Kept the installed extension focused on production features. Runtime behavior is unchanged from 0.1.2.
 
 ## 0.1.2
 

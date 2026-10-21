@@ -10,8 +10,6 @@ A 59-second demo using a real agent and synthetic ticket data. It edits a remote
 
 https://github.com/user-attachments/assets/470ec192-ec44-4f51-a76c-b501260bbe18
 
-[Open the video separately](https://github.com/user-attachments/assets/470ec192-ec44-4f51-a76c-b501260bbe18)
-
 ## Get started
 
 You need desktop VS Code 1.105 or newer, an existing Maritime agent, and a personal [Maritime API key](https://maritime.sh/settings/api-keys) with access to Agents. Command execution also needs the appropriate key scope.
