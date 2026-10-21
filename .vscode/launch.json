@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run MaritimeFS",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/.vscode-test/development-extension"],
+      "outFiles": ["${workspaceFolder}/.vscode-test/development-extension/**/*.cjs"],
+      "preLaunchTask": "npm: build:dev"
+    }
+  ]
+}

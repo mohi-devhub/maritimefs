@@ -1,0 +1,244 @@
+{
+  "name": "maritimefs",
+  "displayName": "MaritimeFS",
+  "description": "Your Maritime agents, right inside VS Code. Browse and edit remote persistent volumes.",
+  "version": "0.1.4",
+  "publisher": "mohi-devhub",
+  "license": "MIT",
+  "author": "MaritimeFS contributors",
+  "bugs": {
+    "url": "https://github.com/mohi-devhub/maritimefs/issues"
+  },
+  "keywords": [
+    "maritime",
+    "remote",
+    "filesystem",
+    "agents"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohi-devhub/maritimefs.git"
+  },
+  "engines": {
+    "vscode": "^1.105.0",
+    "node": ">=22"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.cjs",
+  "extensionKind": [
+    "ui"
+  ],
+  "activationEvents": [
+    "onFileSystem:maritime"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Remote file browsing is available; execution and mutations require workspace trust."
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:dev": "node scripts/build.mjs --development",
+    "vscode:prepublish": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:integration": "npm run build:dev && node scripts/integration.mjs",
+    "package": "vsce package",
+    "package:prerelease": "vsce package --pre-release",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "verify:package": "node scripts/verify-package.mjs",
+    "test:live": "npm run build:dev && node scripts/live-integration.mjs",
+    "test:package": "node scripts/package-integration.mjs",
+    "release:freeze": "node scripts/freeze-release.mjs",
+    "release:freeze:prerelease": "node scripts/freeze-release.mjs --pre-release",
+    "release:verify": "node scripts/package-integration.mjs --frozen"
+  },
+  "dependencies": {
+    "maritime-sdk": "^0.9.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.5",
+    "@types/vscode": "^1.105.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.25.12",
+    "eslint": "^10.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^4.1.12"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "maritimefs.restoreConnection",
+        "title": "Restore Saved Connection",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.connect",
+        "title": "Connect Account",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.disconnect",
+        "title": "Disconnect Account",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.connectionStatus",
+        "title": "Connection Status",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.refresh",
+        "title": "Refresh Agents",
+        "category": "MaritimeFS",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "maritimefs.openWorkspace",
+        "title": "Open Agent Workspace",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.refreshFiles",
+        "title": "Refresh Remote Files",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.lockWorkspaces",
+        "title": "Lock Remote Workspaces",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.execute",
+        "title": "Execute Command",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.openTerminal",
+        "title": "Open Remote Terminal",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.wake",
+        "title": "Wake Agent",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.sleep",
+        "title": "Sleep Agent",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.restart",
+        "title": "Restart Agent",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.refreshStatus",
+        "title": "Refresh Agent Status",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.viewLogs",
+        "title": "View Agent Logs",
+        "category": "MaritimeFS"
+      },
+      {
+        "command": "maritimefs.switchAgent",
+        "title": "Switch Agent",
+        "category": "MaritimeFS"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "maritimefs",
+          "title": "Maritime",
+          "icon": "resources/maritime.svg"
+        }
+      ]
+    },
+    "views": {
+      "maritimefs": [
+        {
+          "id": "maritimefs.agents",
+          "name": "Agents"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "maritimefs.agents",
+        "contents": "Your Maritime agents, right inside VS Code.\n[Connect Account](command:maritimefs.connect)\nRemote workspaces stay locked until you explicitly open them.",
+        "when": "!maritimefs.connected"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "maritimefs.refresh",
+          "when": "view == maritimefs.agents",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "maritimefs.openWorkspace",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "1_agent"
+        },
+        {
+          "command": "maritimefs.refreshStatus",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "1_agent"
+        },
+        {
+          "command": "maritimefs.refreshFiles",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "1_agent"
+        },
+        {
+          "command": "maritimefs.execute",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "1_agent"
+        },
+        {
+          "command": "maritimefs.openTerminal",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "2_agent"
+        },
+        {
+          "command": "maritimefs.viewLogs",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "2_agent"
+        },
+        {
+          "command": "maritimefs.wake",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "2_agent"
+        },
+        {
+          "command": "maritimefs.sleep",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "2_agent"
+        },
+        {
+          "command": "maritimefs.restart",
+          "when": "view == maritimefs.agents && viewItem == maritimeAgent",
+          "group": "3_agent"
+        }
+      ]
+    }
+  }
+}

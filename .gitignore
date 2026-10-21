@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-test/
+coverage/
+.vscode-test/
+*.vsix
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.maritime/
+.DS_Store
+test-results/
+release-artifacts/
